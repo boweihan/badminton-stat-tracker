@@ -1,0 +1,28 @@
+module.exports = {
+  env: {
+    browser: true,
+    jest: true,
+  },
+  extends: "airbnb",
+  plugins: ["react", "jsx-a11y", "import"],
+  parser: "babel-eslint",
+  rules: {
+    indent: ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    quotes: ["error", "double"],
+    semi: ["error", "always"],
+    "react/prefer-stateless-function": 0,
+    "react/require-default-props": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "operator-linebreak": 0,
+    "object-curly-newline": 0,
+    "no-param-reassign": 0,
+    "arrow-parens": 0,
+    "implicit-arrow-linebreak": 0,
+    "import/prefer-default-export": 0,
+    indent: 0,
+    "react/prop-types": 0,
+    "global-require": 0,
+  },
+};
