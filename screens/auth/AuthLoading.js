@@ -1,7 +1,20 @@
 import React from "react";
-import { ActivityIndicator, AsyncStorage, StatusBar, View } from "react-native";
+import { AsyncStorage, View, Text, StyleSheet } from "react-native";
+import { BarIndicator } from "react-native-indicators";
 import { withAppContext } from "../../config/withAppContext";
 import Auth0Constants from "../../constants/Auth0";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
+    padding: 10,
+    fontSize: 20,
+  },
+});
 
 class AuthLoadingScreen extends React.Component {
   constructor(props) {
@@ -29,9 +42,9 @@ class AuthLoadingScreen extends React.Component {
 
   render() {
     return (
-      <View>
-        <ActivityIndicator />
-        <StatusBar barStyle="default" />
+      <View style={styles.container}>
+        <BarIndicator color="black" count={5} size={60} style={{ flex: 0 }} />
+        <Text style={styles.text}>Loading...</Text>
       </View>
     );
   }
