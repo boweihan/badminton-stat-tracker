@@ -1,14 +1,39 @@
 import React from "react";
-import { ExpoConfigView } from "@expo/samples";
+import {
+  ScrollView,
+  StyleSheet,
+  AsyncStorage,
+  TouchableOpacity,
+} from "react-native";
+import ListItem from "../components/ListItem";
+import Auth0Constants from "../constants/Auth0";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 15,
+    backgroundColor: "#fff",
+  },
+});
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
-    title: "app.json",
+    title: "Settings",
+  };
+
+  logout = async () => {
+    const { navigation } = this.props;
+    await AsyncStorage.getItem(Auth0Constants.asyncStorageKey);
+    navigation.navigate("Auth");
   };
 
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
-    return <ExpoConfigView />;
+    return (
+      <ScrollView style={styles.container}>
+        <TouchableOpacity onPress={this.logout}>
+          <ListItem title="Logout" />
+        </TouchableOpacity>
+      </ScrollView>
+    );
   }
 }

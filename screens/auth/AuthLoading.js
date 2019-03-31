@@ -1,5 +1,5 @@
 import React from "react";
-import { AsyncStorage, View, Text, StyleSheet } from "react-native";
+import { AsyncStorage, View, StyleSheet } from "react-native";
 import { BarIndicator } from "react-native-indicators";
 import { withAppContext } from "../../config/withAppContext";
 import Auth0Constants from "../../constants/Auth0";
@@ -44,7 +44,6 @@ class AuthLoadingScreen extends React.Component {
     return (
       <View style={styles.container}>
         <BarIndicator color="black" count={5} size={60} style={{ flex: 0 }} />
-        <Text style={styles.text}>Loading...</Text>
       </View>
     );
   }

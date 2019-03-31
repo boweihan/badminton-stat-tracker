@@ -1,7 +1,9 @@
 import React from "react";
-import { FlatList, View, Text, ScrollView, StyleSheet } from "react-native";
+import { FlatList, View, ScrollView, StyleSheet } from "react-native";
+import { BarIndicator } from "react-native-indicators";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import Card from "../components/Card";
 
 const FETCH_SEASONS = gql`
   query {
@@ -17,6 +19,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
+  loadingContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+  },
 });
 
 export default class SeasonList extends React.Component {
@@ -26,8 +34,13 @@ export default class SeasonList extends React.Component {
         {({ data, error, loading }) => {
           if (error || loading) {
             return (
-              <View>
-                <Text> Loading ... </Text>
+              <View style={styles.loadingContainer}>
+                <BarIndicator
+                  color="black"
+                  count={5}
+                  size={60}
+                  style={{ flex: 0 }}
+                />
               </View>
             );
           }
@@ -38,7 +51,9 @@ export default class SeasonList extends React.Component {
             >
               <FlatList
                 data={data.season}
-                renderItem={({ item }) => <Text>{item.name}</Text>}
+                renderItem={({ item }) => (
+                  <Card title={item.name} subtitle={item.description} />
+                )}
                 keyExtractor={item => item.id.toString()}
               />
             </ScrollView>
