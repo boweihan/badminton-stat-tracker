@@ -6,16 +6,18 @@ import {
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/Home";
 import StatsScreen from "../screens/Stats";
 import SettingsScreen from "../screens/Settings";
+import SeasonList from "../graphql/query/SeasonList";
+import AddSeason from "../graphql/mutation/AddSeason";
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const SeasonStack = createStackNavigator({
+  SeasonList,
+  AddSeason,
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: "Home",
+SeasonStack.navigationOptions = {
+  tabBarLabel: "Seasons",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -57,7 +59,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
+  SeasonStack,
   StatsStack,
   SettingsStack,
 });

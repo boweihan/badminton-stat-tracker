@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Platform, StatusBar, StyleSheet, View } from "react-native";
 import { AppLoading, Asset, Font, Icon } from "expo";
+import { ApolloProvider } from "react-apollo";
+import createApolloClient from "./graphql/apollo";
 import AppNavigator from "./navigation/AppNavigator";
 import AppContextProvider from "./config/AppContextProvider";
 import Colors from "./constants/Colors";
@@ -48,10 +50,12 @@ export default class App extends Component {
     }
     return (
       <AppContextProvider>
-        <View style={styles.container}>
-          {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-          <AppNavigator />
-        </View>
+        <ApolloProvider client={createApolloClient()}>
+          <View style={styles.container}>
+            {Platform.OS === "ios" && <StatusBar barStyle="default" />}
+            <AppNavigator />
+          </View>
+        </ApolloProvider>
       </AppContextProvider>
     );
   }

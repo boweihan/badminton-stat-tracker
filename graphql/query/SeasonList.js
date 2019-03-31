@@ -22,8 +22,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class SeasonList extends React.Component {
+class SeasonList extends React.Component {
+  navigationOptions = {
+    title: "Seasons",
+  };
+
   render() {
+    const { navigation } = this.props;
     return (
       <Query query={FETCH_SEASONS}>
         {({ data, error, loading }) => {
@@ -44,7 +49,10 @@ export default class SeasonList extends React.Component {
                   keyExtractor={item => item.id.toString()}
                 />
               </ScrollView>
-              <FixedButton text="New Season" />
+              <FixedButton
+                text="New Season"
+                onPress={() => navigation.navigate("AddSeason")}
+              />
             </View>
           );
         }}
@@ -52,3 +60,5 @@ export default class SeasonList extends React.Component {
     );
   }
 }
+
+export default SeasonList;

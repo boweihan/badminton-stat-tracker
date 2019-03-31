@@ -96,6 +96,9 @@ class LoginScreen extends React.Component {
       jwt: encodedToken,
     });
     const client = createApolloClient(encodedToken);
+    context.setClient({
+      client,
+    });
     // add the player via graphQL mutation after authenticating
     try {
       await client.mutate({

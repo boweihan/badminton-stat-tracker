@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { Input, Icon, Button } from "react-native-elements";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import { FETCH_SEASONS } from "../query/SeasonList";
@@ -18,22 +13,27 @@ const styles = StyleSheet.create({
 });
 
 const INSERT_SEASON = gql`
-  mutation($text: String!, $userId: String!) {
-    insert_season(objects: [{ name: $name }]) {
+  mutation($name: String!, $description: String) {
+    insert_season(objects: [{ name: $name, description: $description }]) {
       returning {
         id
         name
+        description
       }
     }
   }
 `;
 
-export default class AddSeason extends React.Component {
+class AddSeason extends React.Component {
+  navigationOptions = {
+    title: "Add Season",
+  };
+
   state = {
     name: "",
   };
 
-  _handleNameChange = name => {
+  handleNameChange = name => {
     this.setState({
       name,
     });
@@ -48,12 +48,15 @@ export default class AddSeason extends React.Component {
           name,
         }}
         update={(cache, { data: { insert_season } }) => {
+          console.log("IM UPDATED!");
+          console.log(cache);
           const data = cache.readQuery({
             query: FETCH_SEASONS,
           });
+          console.log(data);
           const newSeason = insert_season.returning[0];
           const newData = {
-            seasons: [newSeason, ...data.seasons],
+            season: [newSeason, ...data.season],
           };
           cache.writeQuery({
             query: FETCH_SEASONS,
@@ -69,31 +72,20 @@ export default class AddSeason extends React.Component {
             if (loading || name === "") {
               return null;
             }
+            insertSeason({ variables: { name } });
             this.setState({
               name: "",
             });
-            insertSeason();
             return null;
           };
           return (
-            <View style={styles.inputContainer}>
-              <View style={styles.textboxContainer}>
-                <TextInput
-                  style={styles.textbox}
-                  editable
-                  onChangeText={this.handleTextChange}
-                  value={name}
-                />
-              </View>
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={submit}
-                  disabled={name === ""}
-                >
-                  <Text style={styles.buttonText}> Add </Text>
-                </TouchableOpacity>
-              </View>
+            <View style={styles.container}>
+              <Input
+                placeholder="Season Name"
+                leftIcon={<Icon name="rowing" />}
+                onChangeText={this.handleNameChange}
+              />
+              <Button title="Add Season" onPress={submit} />
             </View>
           );
         }}
@@ -101,3 +93,5 @@ export default class AddSeason extends React.Component {
     );
   }
 }
+
+export default AddSeason;
