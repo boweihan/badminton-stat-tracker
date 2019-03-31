@@ -6,10 +6,6 @@ import SeasonList from "./SeasonList";
 import Loading from "../components/Loading";
 
 class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: "Home",
-  };
-
   state = {
     client: null,
   };
@@ -38,4 +34,8 @@ class HomeScreen extends React.Component {
   }
 }
 
-export default withAppContext(HomeScreen);
+const EnhancedHomeScreen = withAppContext(HomeScreen);
+EnhancedHomeScreen.navigationOptions = {
+  title: "Home",
+};
+export default EnhancedHomeScreen;
