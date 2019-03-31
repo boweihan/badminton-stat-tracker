@@ -9,6 +9,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     bottom: 0,
     margin: 10,
+    borderWidth: 10,
+    borderColor: Colors.appBackground,
   },
   button: {
     backgroundColor: Colors.darkGreen,
