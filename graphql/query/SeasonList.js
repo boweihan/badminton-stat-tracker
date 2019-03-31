@@ -2,11 +2,11 @@ import React from "react";
 import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import Card from "../components/Card";
-import Loading from "../components/Loading";
-import FixedButton from "../components/FixedButton";
+import Card from "../../components/Card";
+import Loading from "../../components/Loading";
+import FixedButton from "../../components/FixedButton";
 
-const FETCH_SEASONS = gql`
+export const FETCH_SEASONS = gql`
   query {
     season {
       id
@@ -44,7 +44,7 @@ export default class SeasonList extends React.Component {
                   keyExtractor={item => item.id.toString()}
                 />
               </ScrollView>
-              <FixedButton text="Start a New Season" />
+              <FixedButton text="New Season" />
             </View>
           );
         }}

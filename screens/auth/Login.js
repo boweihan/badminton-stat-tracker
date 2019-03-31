@@ -13,7 +13,7 @@ import jwtDecoder from "jwt-decode";
 import gql from "graphql-tag";
 import { withAppContext } from "../../config/withAppContext";
 import Auth0Constants from "../../constants/Auth0";
-import createApolloClient from "../../externals/apollo";
+import createApolloClient from "../../graphql/apollo";
 import shuttlecock from "../../assets/images/shuttlecock.png";
 
 const styles = StyleSheet.create({

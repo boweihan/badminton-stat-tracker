@@ -1,8 +1,8 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
-import createApolloClient from "../externals/apollo";
+import createApolloClient from "../graphql/apollo";
 import { withAppContext } from "../config/withAppContext";
-import SeasonList from "./SeasonList";
+import SeasonList from "../graphql/query/SeasonList";
 import Loading from "../components/Loading";
 
 class HomeScreen extends React.Component {
