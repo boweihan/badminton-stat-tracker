@@ -1,20 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { ApolloProvider } from "react-apollo";
 import createApolloClient from "../externals/apollo";
 import { withAppContext } from "../config/withAppContext";
 import SeasonList from "./SeasonList";
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-});
+import Loading from "../components/Loading";
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    title: "Home",
   };
 
   state = {
@@ -35,11 +28,7 @@ class HomeScreen extends React.Component {
     const { context } = this.props;
     const { user } = context;
     if (!client) {
-      return (
-        <View>
-          <Text>Loading...</Text>
-        </View>
-      );
+      return <Loading />;
     }
     return (
       <ApolloProvider client={client}>
