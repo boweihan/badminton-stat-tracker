@@ -10,10 +10,12 @@ import StatsScreen from "../screens/Stats";
 import SettingsScreen from "../screens/Settings";
 import SeasonList from "../graphql/query/SeasonList";
 import AddSeason from "../graphql/mutation/AddSeason";
+import MatchList from "../graphql/query/MatchList";
 
 const SeasonStack = createStackNavigator({
   SeasonList,
   AddSeason,
+  MatchList,
 });
 
 SeasonStack.navigationOptions = {

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class SeasonList extends React.Component {
+class MatchList extends React.Component {
   navigationOptions = {
     title: "Seasons",
   };
@@ -65,4 +65,4 @@ class SeasonList extends React.Component {
   }
 }
 
-export default SeasonList;
+export default MatchList;

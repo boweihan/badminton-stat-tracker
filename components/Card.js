@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Text, Button } from "react-native-elements";
 
-const CustomCard = ({ title, subtitle }) => (
+const CustomCard = ({ title, subtitle, onPress }) => (
   <Card title={title} image={require("../assets/images/shuttlecock.png")}>
     <Text style={{ marginBottom: 10 }}>{subtitle}</Text>
     <Button
@@ -13,6 +13,7 @@ const CustomCard = ({ title, subtitle }) => (
         marginRight: 0,
         marginBottom: 0,
       }}
+      onPress={onPress}
     />
   </Card>
 );
