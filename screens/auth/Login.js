@@ -2,8 +2,10 @@ import React from "react";
 import { AuthSession } from "expo";
 import { View, Button, Alert, AsyncStorage } from "react-native";
 import jwtDecoder from "jwt-decode";
+import gql from "graphql-tag";
 import { withAppContext } from "../../config/withAppContext";
 import Auth0Constants from "../../constants/Auth0";
+import createApolloClient from "../../externals/apollo";
 
 const toQueryString = params =>
   `?${Object.entries(params)
@@ -62,6 +64,21 @@ class LoginScreen extends React.Component {
       id: decodedToken.sub,
       name: decodedToken.nickname,
       jwt: encodedToken,
+    });
+    const client = createApolloClient(encodedToken);
+    // add the player via graphQL mutation after authenticating
+    await client.mutate({
+      mutation: gql`
+        mutation($username: String, $userid: String) {
+          insert_player(objects: [{ name: $username, id: $userid }]) {
+            affected_rows
+          }
+        }
+      `,
+      variables: {
+        username: decodedToken.nickname,
+        userid: decodedToken.sub,
+      },
     });
     navigation.navigate("Main");
   };
