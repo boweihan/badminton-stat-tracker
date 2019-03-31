@@ -1,11 +1,41 @@
 import React from "react";
 import { AuthSession } from "expo";
-import { View, Button, Alert, AsyncStorage } from "react-native";
+import {
+  View,
+  Alert,
+  AsyncStorage,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import jwtDecoder from "jwt-decode";
 import gql from "graphql-tag";
 import { withAppContext } from "../../config/withAppContext";
 import Auth0Constants from "../../constants/Auth0";
 import createApolloClient from "../../externals/apollo";
+import shuttlecock from "../../assets/images/shuttlecock.png";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    padding: 10,
+    fontSize: 30,
+    fontWeight: "500",
+  },
+  text: {
+    padding: 10,
+    fontSize: 20,
+  },
+  image: {
+    width: 200,
+    height: 200,
+  },
+});
 
 const toQueryString = params =>
   `?${Object.entries(params)
@@ -67,26 +97,35 @@ class LoginScreen extends React.Component {
     });
     const client = createApolloClient(encodedToken);
     // add the player via graphQL mutation after authenticating
-    await client.mutate({
-      mutation: gql`
-        mutation($username: String, $userid: String) {
-          insert_player(objects: [{ name: $username, id: $userid }]) {
-            affected_rows
+    try {
+      await client.mutate({
+        mutation: gql`
+          mutation($username: String, $userid: String) {
+            insert_player(objects: [{ name: $username, id: $userid }]) {
+              affected_rows
+            }
           }
-        }
-      `,
-      variables: {
-        username: decodedToken.nickname,
-        userid: decodedToken.sub,
-      },
-    });
+        `,
+        variables: {
+          username: decodedToken.nickname,
+          userid: decodedToken.sub,
+        },
+      });
+    } catch (e) {
+      // we already added the user
+      // should upsert here instead
+    }
     navigation.navigate("Main");
   };
 
   render() {
     return (
-      <View>
-        <Button title="Sign in!" onPress={this.loginWithAuth0} />
+      <View style={styles.container}>
+        <Text style={styles.title}>Badminton Stat Tracker</Text>
+        <Text style={styles.text}>Click to Enter</Text>
+        <TouchableOpacity onPress={this.loginWithAuth0}>
+          <Image style={styles.image} source={shuttlecock} />
+        </TouchableOpacity>
       </View>
     );
   }

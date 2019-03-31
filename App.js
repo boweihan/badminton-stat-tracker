@@ -8,7 +8,7 @@ import Colors from "./constants/Colors";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.backgroundColor,
+    backgroundColor: Colors.appBackground,
   },
 });
 
@@ -19,7 +19,7 @@ export default class App extends Component {
 
   loadResourcesAsync = async () =>
     Promise.all([
-      Asset.loadAsync([]),
+      Asset.loadAsync([require("./assets/images/shuttlecock.png")]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar
         ...Icon.Ionicons.font,
