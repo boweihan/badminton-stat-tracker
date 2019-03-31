@@ -9,4 +9,6 @@ export default {
   warningText: "#666804",
   noticeBackground: tintColor,
   noticeText: "#fff",
+  lightGreen: "#8cff66",
+  darkGreen: "#009900",
 };
