@@ -6,34 +6,57 @@ import {
   AsyncStorage,
   Text,
   StyleSheet,
-  TouchableOpacity,
   Image,
 } from "react-native";
+import { Button, Icon } from "react-native-elements";
 import jwtDecoder from "jwt-decode";
 import gql from "graphql-tag";
 import { withAppContext } from "../../config/withAppContext";
 import Auth0Constants from "../../constants/Auth0";
 import createApolloClient from "../../graphql/apollo";
-import shuttlecock from "../../assets/images/shuttlecock.png";
+import shuttle from "../../assets/images/shuttle.png";
+import Colors from "../../constants/Colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
-  title: {
-    padding: 10,
-    fontSize: 30,
-    fontWeight: "500",
+  headerView: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    backgroundColor: "#ff8080",
+    width: "100%",
+    paddingBottom: 50,
   },
-  text: {
+  header: {
+    fontFamily: "FjallaOne-Regular",
     padding: 10,
-    fontSize: 20,
+    fontSize: 40,
+    color: Colors.white,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 100,
+    height: 100,
+    borderRadius: 30,
+  },
+  loginView: {
+    flex: 1,
+  },
+  login: {
+    margin: 30,
+    backgroundColor: Colors.appBackground,
+    borderRadius: 10,
+    paddingHorizontal: 30,
+  },
+  loginTitle: {
+    fontFamily: "MerriweatherSans-Bold",
+    paddingHorizontal: 10,
+    fontSize: 24,
+    color: Colors.white,
   },
 });
 
@@ -46,10 +69,6 @@ const toQueryString = params =>
     .join("&")}`;
 
 class LoginScreen extends React.Component {
-  static navigationOptions = {
-    title: "Please sign in",
-  };
-
   loginWithAuth0 = async () => {
     const result = await AuthSession.startAsync({
       authUrl: `${Auth0Constants.domain}/authorize${toQueryString({
@@ -115,6 +134,7 @@ class LoginScreen extends React.Component {
         },
       });
     } catch (e) {
+      console.log(e);
       // we already added the user
       // should upsert here instead
     }
@@ -124,14 +144,24 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Badminton Stat Tracker</Text>
-        <Text style={styles.text}>Click to Enter</Text>
-        <TouchableOpacity onPress={this.loginWithAuth0}>
-          <Image style={styles.image} source={shuttlecock} />
-        </TouchableOpacity>
+        <View style={styles.headerView}>
+          <Text style={styles.header}>Welcome to</Text>
+          <Image source={shuttle} style={styles.image} />
+          <Text style={styles.header}>BST</Text>
+        </View>
+        <View style={styles.loginView}>
+          <Button
+            buttonStyle={styles.login}
+            titleStyle={styles.loginTitle}
+            icon={<Icon name="arrow-forward" size={20} color={Colors.white} />}
+            title="Enter"
+          />
+        </View>
       </View>
     );
   }
 }
 
-export default withAppContext(LoginScreen);
+const LoginWithContext = withAppContext(LoginScreen);
+LoginWithContext.navigationOptions = { header: null };
+export default LoginWithContext;

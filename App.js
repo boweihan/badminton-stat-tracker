@@ -5,12 +5,10 @@ import { ApolloProvider } from "react-apollo";
 import createApolloClient from "./graphql/apollo";
 import AppNavigator from "./navigation/AppNavigator";
 import AppContextProvider from "./config/AppContextProvider";
-import Colors from "./constants/Colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.appBackground,
   },
 });
 
@@ -21,9 +19,16 @@ export default class App extends Component {
 
   loadResourcesAsync = async () =>
     Promise.all([
-      Asset.loadAsync([require("./assets/images/shuttlecock.png")]),
+      Asset.loadAsync([
+        require("./assets/images/shuttlecock.png"),
+        require("./assets/images/player.png"),
+      ]),
       Font.loadAsync({
         ...Icon.Ionicons.font,
+        "MerriweatherSans-Regular": require("./assets/fonts/MerriweatherSans-Regular.ttf"),
+        "MerriweatherSans-Bold": require("./assets/fonts/MerriweatherSans-Bold.ttf"),
+        "MerriweatherSans-Light": require("./assets/fonts/MerriweatherSans-Light.ttf"),
+        "FjallaOne-Regular": require("./assets/fonts/FjallaOne-Regular.ttf"),
       }),
     ]);
 

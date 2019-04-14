@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     margin: 10,
     borderWidth: 10,
-    borderColor: Colors.appBackground,
+    borderColor: Colors.white,
   },
   button: {
     backgroundColor: Colors.darkGreen,

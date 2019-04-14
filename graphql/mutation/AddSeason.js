@@ -48,12 +48,9 @@ class AddSeason extends React.Component {
           name,
         }}
         update={(cache, { data: { insert_season } }) => {
-          console.log("IM UPDATED!");
-          console.log(cache);
           const data = cache.readQuery({
             query: FETCH_SEASONS,
           });
-          console.log(data);
           const newSeason = insert_season.returning[0];
           const newData = {
             season: [newSeason, ...data.season],
