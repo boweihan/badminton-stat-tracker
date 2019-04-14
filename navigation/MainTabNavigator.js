@@ -60,8 +60,17 @@ SettingsStack.navigationOptions = {
   ),
 };
 
-export default createBottomTabNavigator({
-  SeasonStack,
-  StatsStack,
-  SettingsStack,
-});
+export default createBottomTabNavigator(
+  {
+    SeasonStack,
+    StatsStack,
+    SettingsStack,
+  },
+  {
+    tabBarOptions: {
+      labelStyle: {
+        fontFamily: "MerriweatherSans-Regular",
+      },
+    },
+  },
+);

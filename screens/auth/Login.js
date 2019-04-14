@@ -49,8 +49,11 @@ const styles = StyleSheet.create({
   login: {
     margin: 30,
     backgroundColor: Colors.appBackground,
-    borderRadius: 10,
     paddingHorizontal: 30,
+    shadowColor: Colors.borderBlack,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
   },
   loginTitle: {
     fontFamily: "MerriweatherSans-Bold",
@@ -70,19 +73,21 @@ const toQueryString = params =>
 
 class LoginScreen extends React.Component {
   loginWithAuth0 = async () => {
-    const result = await AuthSession.startAsync({
-      authUrl: `${Auth0Constants.domain}/authorize${toQueryString({
-        client_id: Auth0Constants.clientId,
-        response_type: "id_token",
-        scope: "openid profile",
-        audience: Auth0Constants.audience,
-        redirect_uri: await AuthSession.getRedirectUrl(),
-        nonce: "randomstring",
-      })}`,
-    });
-    if (result.type === "success") {
-      this.handleParams(result.params);
-    }
+    const { navigation } = this.props;
+    navigation.navigate("Main");
+    // const result = await AuthSession.startAsync({
+    //   authUrl: `${Auth0Constants.domain}/authorize${toQueryString({
+    //     client_id: Auth0Constants.clientId,
+    //     response_type: "id_token",
+    //     scope: "openid profile",
+    //     audience: Auth0Constants.audience,
+    //     redirect_uri: await AuthSession.getRedirectUrl(),
+    //     nonce: "randomstring",
+    //   })}`,
+    // });
+    // if (result.type === "success") {
+    //   this.handleParams(result.params);
+    // }
   };
 
   handleParams = async responseObj => {
@@ -151,6 +156,7 @@ class LoginScreen extends React.Component {
         </View>
         <View style={styles.loginView}>
           <Button
+            onPress={this.loginWithAuth0}
             buttonStyle={styles.login}
             titleStyle={styles.loginTitle}
             icon={<Icon name="arrow-forward" size={20} color={Colors.white} />}

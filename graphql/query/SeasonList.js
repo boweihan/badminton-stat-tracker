@@ -2,9 +2,10 @@ import React from "react";
 import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import Card from "../../components/Card";
+import ListItem from "../../components/ListItem";
 import Loading from "../../components/Loading";
 import FixedButton from "../../components/FixedButton";
+import Colors from "../../constants/Colors";
 
 export const FETCH_SEASONS = gql`
   query {
@@ -20,11 +21,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
+  scrollView: {
+    flex: 1,
+  },
+  cardStyles: {
+    backgroundColor: Colors.appBackground,
+  },
 });
 
 class SeasonList extends React.Component {
-  navigationOptions = {
+  static navigationOptions = {
     title: "Seasons",
+    headerStyle: {
+      backgroundColor: Colors.appBackground,
+    },
+    headerTitleStyle: {
+      fontFamily: "MerriweatherSans-Bold",
+      color: Colors.white,
+    },
   };
 
   render() {
@@ -44,9 +58,10 @@ class SeasonList extends React.Component {
                 <FlatList
                   data={data.season}
                   renderItem={({ item }) => (
-                    <Card
+                    <ListItem
                       title={item.name}
                       subtitle={item.description}
+                      style={styles.cardStyles}
                       onPress={() => navigation.navigate("MatchList")}
                     />
                   )}

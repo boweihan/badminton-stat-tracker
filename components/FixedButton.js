@@ -6,24 +6,19 @@ import Colors from "../constants/Colors";
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    alignSelf: "center",
-    bottom: 0,
-    margin: 10,
-    borderWidth: 10,
-    borderColor: Colors.white,
+    alignSelf: "flex-end",
+    bottom: 10,
+    right: 20,
   },
   button: {
-    backgroundColor: Colors.darkGreen,
-  },
-  icon: {
-    paddingRight: 5,
+    backgroundColor: Colors.appBackground,
+    padding: 10,
+    borderRadius: 40,
   },
 });
 
-const FixedIcon = ({ text, onPress }) => (
+const FixedIcon = ({ onPress }) => (
   <Button
-    raised
-    title={text}
     style={styles.container}
     buttonStyle={styles.button}
     onPress={onPress}

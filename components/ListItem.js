@@ -1,26 +1,35 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import { ListItem } from "react-native-elements";
+import icon from "../assets/images/icon.png";
+import Colors from "../constants/Colors";
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   listItem: {
-    borderBottomWidth: 2,
-    borderTopWidth: 2,
-    borderColor: "#f2f2f2",
+    borderRadius: 5,
+    margin: 10,
+    marginBottom: 0,
+    shadowColor: Colors.borderBlack,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+  },
+  titleStyle: {
+    fontFamily: "MerriweatherSans-Regular",
+  },
+  image: {
+    width: 50,
+    height: 50,
   },
 });
 
 const CustomListItem = ({ title, subtitle }) => (
   <ListItem
-    // leftAvatar={{ source: { uri: l.avatar_url } }}
+    leftElement={<Image source={icon} style={styles.image} />}
     style={styles.listItem}
     title={title}
-    subtitle={subtitle}
-    titleStyle={{ fontWeight: "bold" }}
-    subtitleStyle={{}}
+    subtitle={subtitle || "no description"}
+    titleStyle={styles.titleStyle}
     chevronColor="white"
     chevron
   />

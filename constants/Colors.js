@@ -5,6 +5,7 @@ export default {
   tabIconDefault: "#ccc",
   tabIconSelected: tintColor,
   appBackground: "#ff8080",
+  darkAppBackground: "#ff6666",
   warningBackground: "#EAEB5E",
   warningText: "#666804",
   noticeBackground: tintColor,
