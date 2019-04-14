@@ -4,11 +4,55 @@ import { Input, Icon, Button } from "react-native-elements";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import { FETCH_SEASONS } from "../query/SeasonList";
+import Colors from "../../constants/Colors";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    display: "flex",
+    alignItems: "center",
     justifyContent: "center",
+  },
+  headerView: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    backgroundColor: "#ff8080",
+    width: "100%",
+  },
+  header: {
+    fontFamily: "FjallaOne-Regular",
+    padding: 10,
+    fontSize: 40,
+    color: Colors.white,
+  },
+  formView: {
+    flex: 1,
+    width: "80%",
+  },
+  formInput: {
+    marginTop: 10,
+  },
+  formInputStyle: {
+    borderColor: Colors.appBackground,
+  },
+  formInputTextStyle: {
+    fontFamily: "MerriweatherSans-Regular",
+  },
+  formButton: {
+    margin: 10,
+    backgroundColor: Colors.appBackground,
+    paddingHorizontal: 30,
+    shadowColor: Colors.borderBlack,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+  },
+  formButtonTitle: {
+    fontFamily: "MerriweatherSans-Bold",
+    paddingHorizontal: 10,
+    fontSize: 18,
+    color: Colors.white,
   },
 });
 
@@ -77,12 +121,39 @@ class AddSeason extends React.Component {
           };
           return (
             <View style={styles.container}>
-              <Input
-                placeholder="Season Name"
-                leftIcon={<Icon name="rowing" />}
-                onChangeText={this.handleNameChange}
-              />
-              <Button title="Add Season" onPress={submit} />
+              <View style={styles.headerView}>
+                <Text style={styles.header}>Add Season</Text>
+              </View>
+              <View style={styles.formView}>
+                <Input
+                  containerStyle={styles.formInput}
+                  inputContainerStyle={styles.formInputStyle}
+                  inputStyle={styles.formInputTextStyle}
+                  placeholder="Name"
+                  onChangeText={this.handleNameChange}
+                />
+                <Input
+                  containerStyle={styles.formInput}
+                  inputContainerStyle={styles.formInputStyle}
+                  inputStyle={styles.formInputTextStyle}
+                  placeholder="Description"
+                  onChangeText={this.handleNameChange}
+                />
+                <Button
+                  onPress={submit}
+                  buttonStyle={styles.formButton}
+                  titleStyle={styles.formButtonTitle}
+                  icon={
+                    <Icon
+                      name="plus"
+                      type="font-awesome"
+                      size={20}
+                      color={Colors.white}
+                    />
+                  }
+                  title="Add"
+                />
+              </View>
             </View>
           );
         }}
