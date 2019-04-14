@@ -23,9 +23,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const CustomListItem = ({ title, subtitle }) => (
+const CustomListItem = ({ title, subtitle, onPress }) => (
   <ListItem
     leftElement={<Image source={icon} style={styles.image} />}
+    onPress={onPress}
     style={styles.listItem}
     title={title}
     subtitle={subtitle || "no description"}
