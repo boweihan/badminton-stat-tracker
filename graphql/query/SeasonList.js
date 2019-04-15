@@ -2,7 +2,7 @@ import React from "react";
 import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import SwipeableListItem from "../../components/ListItem";
+import SwipeableListItem from "../../components/SwipeableListItem";
 import Loading from "../../components/Loading";
 import FixedButton from "../../components/FixedButton";
 import Colors from "../../constants/Colors";
@@ -60,6 +60,7 @@ class SeasonList extends React.Component {
                   data={data.season}
                   renderItem={({ item }) => (
                     <SwipeableListItem
+                      itemId={item.id}
                       title={item.name}
                       subtitle={item.description}
                       style={styles.cardStyles}

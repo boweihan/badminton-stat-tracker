@@ -7,8 +7,10 @@ import Colors from "../constants/Colors";
 const styles = StyleSheet.create({
   listItem: {
     borderRadius: 5,
-    margin: 10,
-    marginBottom: 0,
+    marginRight: 10,
+    marginBottom: 2,
+    marginLeft: 0,
+    marginTop: 8,
     shadowColor: Colors.borderBlack,
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.5,

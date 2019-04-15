@@ -107,7 +107,7 @@ class AddSeason extends React.Component {
           });
           const newSeason = insert_season.returning[0];
           const newData = {
-            season: [newSeason, ...data.season],
+            season: [...data.season, newSeason],
           };
           cache.writeQuery({
             query: FETCH_SEASONS,
@@ -117,7 +117,7 @@ class AddSeason extends React.Component {
       >
         {(insertSeason, { loading, error }) => {
           const submit = async () => {
-            await insertSeason({ variables: { name, description } });
+            await insertSeason();
             navigation.navigate("SeasonList");
           };
 

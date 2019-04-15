@@ -1,6 +1,7 @@
 import React from "react";
 import { BarIndicator } from "react-native-indicators";
 import { StyleSheet, View } from "react-native";
+import Colors from "../constants/Colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +13,12 @@ const styles = StyleSheet.create({
 
 const Loading = () => (
   <View style={styles.container}>
-    <BarIndicator color="black" count={5} size={60} style={{ flex: 0 }} />
+    <BarIndicator
+      color={Colors.appBackground}
+      count={5}
+      size={60}
+      style={{ flex: 0 }}
+    />
   </View>
 );
 
