@@ -76,6 +76,7 @@ class AddSeason extends React.Component {
 
   state = {
     name: "",
+    description: "",
   };
 
   handleNameChange = name => {
@@ -84,14 +85,21 @@ class AddSeason extends React.Component {
     });
   };
 
+  handleDescriptionChange = description => {
+    this.setState({
+      description,
+    });
+  };
+
   render() {
     const { navigation } = this.props;
-    const { name } = this.state;
+    const { name, description } = this.state;
     return (
       <Mutation
         mutation={INSERT_SEASON}
         variables={{
           name,
+          description,
         }}
         update={(cache, { data: { insert_season } }) => {
           const data = cache.readQuery({
@@ -109,7 +117,7 @@ class AddSeason extends React.Component {
       >
         {(insertSeason, { loading, error }) => {
           const submit = async () => {
-            await insertSeason({ variables: { name } });
+            await insertSeason({ variables: { name, description } });
             navigation.navigate("SeasonList");
           };
 
@@ -136,7 +144,7 @@ class AddSeason extends React.Component {
                   inputContainerStyle={styles.formInputStyle}
                   inputStyle={styles.formInputTextStyle}
                   placeholder="Description"
-                  onChangeText={this.handleNameChange}
+                  onChangeText={this.handleDescriptionChange}
                 />
                 {loading ? (
                   <Button

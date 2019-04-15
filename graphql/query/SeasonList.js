@@ -2,7 +2,7 @@ import React from "react";
 import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import ListItem from "../../components/ListItem";
+import SwipeableListItem from "../../components/ListItem";
 import Loading from "../../components/Loading";
 import FixedButton from "../../components/FixedButton";
 import Colors from "../../constants/Colors";
@@ -12,6 +12,7 @@ export const FETCH_SEASONS = gql`
     season {
       id
       name
+      description
     }
   }
 `;
@@ -58,7 +59,7 @@ class SeasonList extends React.Component {
                 <FlatList
                   data={data.season}
                   renderItem={({ item }) => (
-                    <ListItem
+                    <SwipeableListItem
                       title={item.name}
                       subtitle={item.description}
                       style={styles.cardStyles}
