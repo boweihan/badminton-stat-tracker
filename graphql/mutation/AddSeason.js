@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Input, Icon, Button } from "react-native-elements";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import { BallIndicator } from "react-native-indicators";
 import { FETCH_SEASONS } from "../query/SeasonList";
 import Colors from "../../constants/Colors";
 
@@ -84,6 +85,7 @@ class AddSeason extends React.Component {
   };
 
   render() {
+    const { navigation } = this.props;
     const { name } = this.state;
     return (
       <Mutation
@@ -106,19 +108,16 @@ class AddSeason extends React.Component {
         }}
       >
         {(insertSeason, { loading, error }) => {
-          const submit = () => {
-            if (error) {
-              return <Text> Error </Text>;
-            }
-            if (loading || name === "") {
-              return null;
-            }
-            insertSeason({ variables: { name } });
-            this.setState({
-              name: "",
-            });
-            return null;
+          const submit = async () => {
+            await insertSeason({ variables: { name } });
+            navigation.navigate("SeasonList");
           };
+
+          if (error) {
+            // TODO: add error handling
+            console.log(error);
+          }
+
           return (
             <View style={styles.container}>
               <View style={styles.headerView}>
@@ -139,20 +138,29 @@ class AddSeason extends React.Component {
                   placeholder="Description"
                   onChangeText={this.handleNameChange}
                 />
-                <Button
-                  onPress={submit}
-                  buttonStyle={styles.formButton}
-                  titleStyle={styles.formButtonTitle}
-                  icon={
-                    <Icon
-                      name="plus"
-                      type="font-awesome"
-                      size={20}
-                      color={Colors.white}
-                    />
-                  }
-                  title="Add"
-                />
+                {loading ? (
+                  <Button
+                    onPress={submit}
+                    buttonStyle={styles.formButton}
+                    titleStyle={styles.formButtonTitle}
+                    icon={<BallIndicator color={Colors.white} size={20} />}
+                  />
+                ) : (
+                  <Button
+                    onPress={submit}
+                    buttonStyle={styles.formButton}
+                    titleStyle={styles.formButtonTitle}
+                    icon={
+                      <Icon
+                        name="plus"
+                        type="font-awesome"
+                        size={20}
+                        color={Colors.white}
+                      />
+                    }
+                    title="Add"
+                  />
+                )}
               </View>
             </View>
           );
